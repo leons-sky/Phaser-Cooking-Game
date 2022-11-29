@@ -15,6 +15,7 @@ export default class Camera extends Behaviour {
 		const cake2 = new Food.CAKE(this.scene);
 		cake2.addToScene();
 		cake2.remove(cake2.children[0], cake2.children[1]);
-		const stove = new Furnature.STOVE(this.scene);
+
+		// const stove = new Furnature.STOVE(this.scene);
 	}
 }

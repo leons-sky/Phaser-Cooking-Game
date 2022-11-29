@@ -81,3 +81,7 @@ export default class GameObject extends ExtendedObject3D {
 		this.add(this.assets.model);
 	}
 }
+
+export declare class DefinedGameObject extends GameObject {
+	constructor(scene: Scene3D);
+}
