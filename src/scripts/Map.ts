@@ -1,20 +1,16 @@
-import Behaviour from "../classes/Behaviour";
-import { Food, Furnature } from "../objects";
+import Behaviour from "../classes/base/Behaviour";
+import { Furnature, Structure } from "../objects";
 
 export default class Camera extends Behaviour {
 	async start() {
 		for (let i = 0; i < 5; i++) {
-			const wall = new Furnature.WALL(this.scene).addToScene();
-			wall.position.set(i, 0, -2);
+			const wall = new Structure.WALL(this.scene);
+			wall.position.set(i, 0.65, -2);
+			wall.addToScene();
 		}
-		const doorway = new Furnature.DOORWAY(this.scene).addToScene();
-		doorway.position.set(-1, 0, -2);
-		const cake = new Food.CAKE(this.scene);
-		cake.position.set(2, 0, 0);
-		cake.addToScene();
-		const cake2 = new Food.CAKE(this.scene);
-		cake2.addToScene();
-		cake2.remove(cake2.children[0], cake2.children[1]);
+		const doorway = new Structure.DOORWAY(this.scene);
+		doorway.position.set(-1, 0.65, -2);
+		doorway.addToScene();
 
 		// const stove = new Furnature.STOVE(this.scene);
 	}

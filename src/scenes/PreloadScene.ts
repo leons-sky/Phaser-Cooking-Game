@@ -1,5 +1,11 @@
 import { Scene3D } from "@enable3d/phaser-extension";
-import { preload, Food, Furnature } from "../objects";
+import {
+	preload,
+	Furnature,
+	Ingredients,
+	Products,
+	Structure,
+} from "../objects";
 
 export default class PreloadScene extends Scene3D {
 	constructor() {
@@ -17,8 +23,10 @@ export default class PreloadScene extends Scene3D {
 
 		console.log("PreloadScene: Preload assets");
 
+		await preload(Structure, this);
 		await preload(Furnature, this);
-		await preload(Food, this);
+		await preload(Ingredients, this);
+		await preload(Products, this);
 
 		this.scene.launch("MainScene");
 	}

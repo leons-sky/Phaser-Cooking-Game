@@ -1,15 +1,21 @@
-import { Scene3D } from "@enable3d/phaser-extension";
 import Third from "@enable3d/phaser-extension/dist/third";
 import { AudioManager } from "@yandeu/audio";
 import { Keyboard } from "@yandeu/keyboard";
 import { Tap } from "@yandeu/tap";
 import Phaser from "phaser";
+import ExtendedScene3D from "./ExtendedScene3D";
+
+const app = document.getElementById("app") as HTMLElement;
 
 export default class Behaviour {
+	enabled: boolean = true;
+
+	domElement: HTMLElement = app;
+
 	/**
 	 * A reference to the current scene.
 	 */
-	scene: Scene3D;
+	scene: ExtendedScene3D;
 
 	/**
 	 * A reference to the enabled3d.Third instance.
@@ -120,10 +126,11 @@ export default class Behaviour {
 	 */
 	audio: AudioManager;
 
-	constructor(scene: Scene3D, audio: AudioManager) {
+	constructor(scene: ExtendedScene3D) {
 		this.scene = scene;
 		this.third = scene.third;
 		this.game = scene.game;
+		this.audio = scene.audio;
 		this.cache = scene.cache;
 		this.registry = scene.registry;
 		this.sound = scene.sound;
@@ -135,9 +142,8 @@ export default class Behaviour {
 		this.plugins = scene.plugins;
 		this.renderer = scene.renderer;
 
-		this.tap = new Tap(document.querySelector("body") as HTMLElement);
+		this.tap = new Tap(this.domElement);
 		this.keyboard = new Keyboard();
-		this.audio = audio;
 	}
 
 	/**
