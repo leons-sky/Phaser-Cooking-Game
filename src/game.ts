@@ -1,5 +1,6 @@
 import { Canvas, enable3d } from "@enable3d/phaser-extension";
 import Phaser from "phaser";
+import InterfaceScene from "./scenes/InterfaceScene";
 import MainScene from "./scenes/MainScene";
 import PreloadScene from "./scenes/PreloadScene";
 
@@ -13,7 +14,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		width: window.innerWidth * Math.max(1, window.devicePixelRatio / 2),
 		height: window.innerHeight * Math.max(1, window.devicePixelRatio / 2),
 	},
-	scene: [PreloadScene, MainScene],
+	scene: [PreloadScene, MainScene, InterfaceScene],
 	...Canvas({
 		antialias: true,
 	}),

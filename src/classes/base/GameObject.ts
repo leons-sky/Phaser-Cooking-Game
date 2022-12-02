@@ -12,6 +12,7 @@ import ExtendedScene3D from "./ExtendedScene3D";
 export interface AssetUrlOptions {
 	path: string;
 	offset?: Vector3;
+	scale?: number | Vector3;
 }
 
 export interface AssetUrls {
@@ -33,33 +34,39 @@ export interface GameObjectOptions {
 	assets: AssetUrls;
 	material?: Material;
 	physics?: boolean | PhysicsOptions;
+	shadows?: {
+		cast?: boolean;
+		receive?: boolean;
+	};
 }
 
 export default class GameObject extends ExtendedObject3D {
-	protected scene: ExtendedScene3D;
+	protected scene?: ExtendedScene3D;
 	protected loaded: boolean;
 	private _assets: Assets;
 	protected readonly _options: GameObjectOptions;
 	protected readonly hasPhysics: boolean;
 	protected readonly assetUrls: AssetUrls;
+	public destroyed: boolean = false;
 
-	constructor(scene: ExtendedScene3D, options: GameObjectOptions) {
+	constructor(options: GameObjectOptions) {
 		super();
 
 		this._options = options;
 
-		this.scene = scene;
-		this.name = options.name;
+		this.name = options.name + this.id;
 		this.material = options.material ?? new MeshStandardMaterial();
 		this.hasPhysics = !!options.physics;
 
 		this._assets = {};
 		this.assetUrls = options.assets;
 		this.loaded = false;
+
+		this.type = "GameObject";
 	}
 
-	static create(scene: ExtendedScene3D): GameObject {
-		return new GameObject(scene, {
+	static create(): GameObject {
+		return new GameObject({
 			name: "GameObject",
 			assets: {},
 		});
@@ -69,18 +76,22 @@ export default class GameObject extends ExtendedObject3D {
 		return this._assets;
 	}
 
-	async preloadAssets() {
+	async preloadAssets(scene: Scene3D) {
 		for (const key of Object.keys(this.assetUrls)) {
 			const data = this.assetUrls[key];
 			let assetPath = typeof data === "string" ? data : data.path;
 			if (!loadedModels["/assets" + assetPath]) {
-				const gltf = await this.scene.third.load.gltf(
-					"/assets" + assetPath
-				);
+				const gltf = await scene.third.load.gltf("/assets" + assetPath);
 				const child = gltf.scene.children[0];
-				if (typeof data !== "string" && data.offset) {
-					child.position.add(data.offset);
+				if (typeof data !== "string") {
+					if (data.offset) child.position.add(data.offset);
+					if (data.scale) {
+						if (data.scale instanceof Vector3)
+							child.scale.multiply(data.scale);
+						else child.scale.multiplyScalar(data.scale);
+					}
 				}
+
 				loadedModels["/assets" + assetPath] = child;
 			}
 		}
@@ -97,33 +108,45 @@ export default class GameObject extends ExtendedObject3D {
 		}
 	}
 
-	load(): this {
+	load() {
 		if (this.loaded) throw new Error("Assets already loaded");
 		this.loaded = true;
 
 		this.loadAssets();
 		this.construct();
-
-		return this;
 	}
 
-	addToScene(scene?: ExtendedScene3D): this {
-		if (scene) this.scene = scene;
+	addToScene(scene: ExtendedScene3D) {
+		this.scene = scene;
 		if (!this.loaded) this.load();
 
-		this.scene.third.scene.add(this);
-		if (this.hasPhysics) {
-			this.createCollisionBox();
-		}
-		return this;
+		scene.third.scene.add(this);
+		this.refreshCollisionBox();
+		this.calculateShadows();
+
+		this.onAddToScene(scene);
 	}
 
-	construct(): void {
+	onAddToScene(scene: ExtendedScene3D) {}
+
+	construct() {
 		this.add(this.assets.model);
 	}
 
+	calculateShadows() {
+		const shadows = this._options.shadows ?? {};
+		this.traverse((object) => {
+			if (object.isMesh) {
+				object.castShadow =
+					shadows.cast !== undefined ? shadows.cast : true;
+				object.receiveShadow =
+					shadows.receive !== undefined ? shadows.receive : true;
+			}
+		});
+	}
+
 	createCollisionBox() {
-		this.scene.third.physics.add.existing(this, {
+		this.scene?.third.physics.add.existing(this, {
 			shape: "mesh",
 			mass:
 				typeof this._options.physics !== "boolean"
@@ -133,8 +156,32 @@ export default class GameObject extends ExtendedObject3D {
 	}
 
 	refreshCollisionBox() {
-		this.scene.third.physics.destroy(this);
+		if (!this.hasPhysics) return;
+
+		if (this.body) this.destroyCollisionBox();
 		this.createCollisionBox();
+		this.body.setGravity(0, -30, 0);
+	}
+
+	destroyCollisionBox() {
+		if (!this.scene) return;
+		// this.scene?.third.physics.destroy(this);
+		// reimplementation of above method to resolve bug where multiple rigid bodies are removed
+		if (!this.body) return;
+		const physics = this.scene.third.physics;
+		// @ts-expect-error: threeObject does not exist on btRigidBody.
+		const obj = this.body.ammo.threeObject;
+		if (!obj.body) return;
+		if (obj.body.ammo) physics.physicsWorld.removeRigidBody(obj.body.ammo);
+		obj.body.destructor();
+		obj.body = null;
+		obj.hasBody = false;
+		for (let i = 0; i < physics.rigidBodies.length; i++) {
+			if (physics.rigidBodies[i] === obj) {
+				physics.rigidBodies.splice(i, 1);
+				i--;
+			}
+		}
 	}
 
 	findFirstChild(name: string, recursive: boolean) {
@@ -153,8 +200,11 @@ export default class GameObject extends ExtendedObject3D {
 		return FindFirstAncestorWhichIsA(this, objectClass);
 	}
 
-	destroy(): void {
-		this.scene.third.physics.destroy(this);
+	destroy() {
+		if (this.destroyed) return;
+		this.destroyed = true;
+
+		this.destroyCollisionBox();
 		this.parent?.remove(this);
 	}
 
@@ -167,8 +217,4 @@ export default class GameObject extends ExtendedObject3D {
 		}
 		this.body.needUpdate = true;
 	}
-}
-
-export declare class DefinedGameObject extends GameObject {
-	constructor(scene: Scene3D);
 }

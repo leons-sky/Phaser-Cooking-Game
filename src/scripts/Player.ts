@@ -3,8 +3,9 @@ import {
 	FirstPersonControls,
 } from "@enable3d/phaser-extension";
 import { Raycaster, Vector2, Vector3 } from "three";
-import Behaviour from "../classes/base/Behaviour";
-import ExtendedScene3D from "../classes/base/ExtendedScene3D";
+import Behaviour3D from "../classes/base/Behaviour3D";
+import GameState from "../classes/base/GameState";
+import MainScene from "../scenes/MainScene";
 
 const KEYS = "W, A, S, D, shift, up, left, down, right";
 interface Keys {
@@ -21,8 +22,7 @@ interface Keys {
 	shift: Phaser.Input.Keyboard.Key;
 }
 
-export default class Player extends Behaviour {
-	private reticle: Phaser.GameObjects.Arc;
+export default class Player extends Behaviour3D<MainScene> {
 	private object: ExtendedObject3D;
 	private controls: FirstPersonControls;
 	private keys: Keys;
@@ -35,19 +35,15 @@ export default class Player extends Behaviour {
 	private rotationSpeed: number;
 	private collide: boolean;
 
-	constructor(scene: ExtendedScene3D) {
+	constructor(scene: MainScene) {
 		super(scene);
 
-		this.enabled = !this.scene.state.getValue("dev");
-
-		this.walkSpeed = 3;
+		this.walkSpeed = 6;
 		this.rotationSpeed = 10;
 		this.collide = false;
 
 		this.pointerMoveX = 0;
 		this.pointerMoveY = 0;
-
-		this.reticle = scene.add.circle(0, 0, 3, 0x101010);
 
 		this.object = new ExtendedObject3D();
 		this.object.name = "Player";
@@ -59,29 +55,34 @@ export default class Player extends Behaviour {
 		this.keys = this.input.keyboard.addKeys(KEYS) as Keys;
 	}
 
+	checkEnabledState(state: GameState): void {
+		this.enabled = !state.getValue("dev");
+	}
+
 	start() {
 		this.scene.state.setValue("firstPerson", true);
 
-		this.object.position.set(0, 0, 2);
+		this.object.position.set(-2, 0, 3);
 		this.scene.third.physics.add.existing(this.object, {
 			shape: "capsule",
 			mass: 1.8,
-			radius: 0.2,
-			offset: { y: 0.3 },
-			height: 0.5,
+			radius: 0.25,
+			offset: { y: 0.9 },
+			height: 1,
 		});
 		this.object.body.setAngularFactor(0, 0, 0);
 		this.object.body.setFriction(0.4);
 		this.object.body.setGravity(0, -200, 0);
-		this.object.body.setPosition(50, 10, 50);
 
 		this.third.scene.add(this.object);
 
 		this.scene.input
-			.on("pointerdown", () =>
-				this.scene.input.mouse.requestPointerLock()
-			)
+			.on("pointerdown", () => {
+				if (!this.enabled) return;
+				this.scene.input.mouse.requestPointerLock();
+			})
 			.on("pointermove", (pointer: Phaser.Input.Pointer) => {
+				if (!this.enabled) return;
 				if (this.scene.input.mouse.locked) {
 					this.pointerMoveX = pointer.movementX;
 					this.pointerMoveY = pointer.movementY;
@@ -131,26 +132,28 @@ export default class Player extends Behaviour {
 
 		const cam = this.scene.third.camera,
 			direction = cam.getWorldDirection(this.raycaster.ray.direction),
-			x = direction.x * this.walkSpeed,
-			z = direction.z * this.walkSpeed,
-			velocity = new Vector2();
+			flatDirection = new Vector2(direction.x, direction.z).normalize();
+
+		let velocity = new Vector2();
 
 		if (dir.x > 0) {
-			velocity.x += -z;
-			velocity.y += x;
+			velocity.x += -flatDirection.y;
+			velocity.y += flatDirection.x;
 		}
 		if (dir.x < 0) {
-			velocity.x += z;
-			velocity.y += -x;
+			velocity.x += flatDirection.y;
+			velocity.y += -flatDirection.x;
 		}
 		if (dir.y < 0) {
-			velocity.x += x;
-			velocity.y += z;
+			velocity.x += flatDirection.x;
+			velocity.y += flatDirection.y;
 		}
 		if (dir.y > 0) {
-			velocity.x += -x;
-			velocity.y += -z;
+			velocity.x += -flatDirection.x;
+			velocity.y += -flatDirection.y;
 		}
+
+		velocity = velocity.multiplyScalar(this.walkSpeed);
 
 		this.object.body.setVelocityX(velocity.x);
 		this.object.body.setVelocityZ(velocity.y);
@@ -205,15 +208,7 @@ export default class Player extends Behaviour {
 
 		this.raycaster.ray.origin.copy(cam.position);
 
-		const screenCenterX =
-			this.cameras.main.worldView.x + this.cameras.main.width / 2;
-		const screenCenterY =
-			this.cameras.main.worldView.y + this.cameras.main.height / 2;
-		this.reticle.setPosition(screenCenterX, screenCenterY);
-
-		// if (this.collide === true) this.canJump = true;
-
-		this.object.body.on.collision((otherObject, event) => {
+		this.object.body.on.collision((_otherObject, event) => {
 			if (event !== "end") this.collide = true;
 			else this.collide = false;
 		});

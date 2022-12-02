@@ -1,18 +1,19 @@
-import ExtendedScene3D from "../../classes/base/ExtendedScene3D";
-import GameObject from "../../classes/base/GameObject";
+import Food from "../../classes/item/food/Food";
+import { ItemOptions } from "../../classes/item/Item";
 
-export default class Waffle extends GameObject {
-	constructor(scene: ExtendedScene3D) {
-		super(scene, {
+export default class Waffle extends Food {
+	constructor(options: ItemOptions) {
+		super(options);
+	}
+
+	static create() {
+		return new Waffle({
 			name: "Waffle",
+			uniqueId: "WAFFLE",
 			assets: {
 				model: "/models/food/waffle.glb",
 			},
 			physics: true,
 		});
-	}
-
-	static create(scene: ExtendedScene3D) {
-		return new Waffle(scene);
 	}
 }

@@ -3,7 +3,9 @@ import {
 	FirstPersonControls,
 } from "@enable3d/phaser-extension";
 import { Matrix4, Vector3 } from "three";
-import Behaviour from "../classes/base/Behaviour";
+import Behaviour3D from "../classes/base/Behaviour3D";
+import ExtendedScene3D from "../classes/base/ExtendedScene3D";
+import GameState from "../classes/base/GameState";
 
 const KEYS = "W, A, S, D, Q, E, shift, up, left, down, right";
 interface Keys {
@@ -22,7 +24,7 @@ interface Keys {
 	shift: Phaser.Input.Keyboard.Key;
 }
 
-export default class DevCamera extends Behaviour {
+export default class DevCamera extends Behaviour3D<ExtendedScene3D> {
 	private object: ExtendedObject3D;
 	private controls: FirstPersonControls;
 	private keys: Keys;
@@ -31,12 +33,10 @@ export default class DevCamera extends Behaviour {
 	private pointerMoveY: number;
 	private speed: number = 0.3;
 	private rotationSpeed: number = 2;
-	private position: Vector3 = new Vector3(-48, 2, -10);
+	private position: Vector3 = new Vector3(0, 7, -10);
 
 	constructor(scene: any) {
 		super(scene);
-
-		this.enabled = this.scene.state.getValue("dev");
 
 		this.pointerMoveX = 0;
 		this.pointerMoveY = 0;
@@ -51,15 +51,24 @@ export default class DevCamera extends Behaviour {
 		this.keys = this.input.keyboard.addKeys(KEYS) as Keys;
 	}
 
+	checkEnabledState(state: GameState) {
+		this.enabled = state.getValue("dev");
+	}
+
 	start() {
 		this.third.scene.add(this.object);
 
 		this.scene.input
-			.on("pointerdown", () =>
-				this.scene.input.mouse.requestPointerLock()
-			)
-			.on("pointerup", () => this.scene.input.mouse.releasePointerLock())
+			.on("pointerdown", () => {
+				if (!this.enabled) return;
+				this.scene.input.mouse.requestPointerLock();
+			})
+			.on("pointerup", () => {
+				if (!this.enabled) return;
+				this.scene.input.mouse.releasePointerLock();
+			})
 			.on("pointermove", (pointer: Phaser.Input.Pointer) => {
+				if (!this.enabled) return;
 				if (this.scene.input.mouse.locked) {
 					this.pointerMoveX = pointer.movementX;
 					this.pointerMoveY = pointer.movementY;

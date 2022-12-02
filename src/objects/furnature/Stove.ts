@@ -1,17 +1,32 @@
-import ExtendedScene3D from "../../classes/base/ExtendedScene3D";
-import GameObject from "../../classes/base/GameObject";
+import GameObject, { GameObjectOptions } from "../../classes/base/GameObject";
 
 export default class Stove extends GameObject {
-	constructor(scene: ExtendedScene3D) {
-		super(scene, {
+	constructor(options: GameObjectOptions) {
+		super(options);
+	}
+
+	static create() {
+		return new Stove({
 			name: "Stove",
 			assets: {
-				model: "/models/furnature/kitchenStove.glb",
+				model: {
+					path: "/models/furnature/kitchenStove.glb",
+					// offset: new Vector3(-0.425, -0.425, 0.45),
+					scale: 2,
+				},
 			},
+			physics: true,
 		});
 	}
 
-	static create(scene: ExtendedScene3D) {
-		return new Stove(scene);
+	createCollisionBox() {
+		this.scene?.third.physics.add.existing(this, {
+			shape: "mesh",
+			// width: 0.9,
+			// height: 0.85,
+			// depth: 0.9,
+			collisionFlags: 1,
+		});
+		this.body.setRestitution(0);
 	}
 }

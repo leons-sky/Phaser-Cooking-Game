@@ -65,3 +65,17 @@ export function FindFirstAncestorWhichIsA(
 	}
 	return null;
 }
+
+export function FindFirstAncestorWhichEquals(
+	object: Object3D,
+	otherObject: Object3D
+): Object3D | null {
+	const parent = object.parent;
+	if (parent) {
+		if (parent === otherObject) {
+			return parent;
+		}
+		return FindFirstAncestorWhichIsA(parent, otherObject);
+	}
+	return null;
+}

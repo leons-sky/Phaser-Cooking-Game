@@ -1,11 +1,16 @@
 import { Vector3 } from "three";
-import ExtendedScene3D from "../../classes/base/ExtendedScene3D";
-import Interactable from "../../classes/base/Interactable";
+import Food from "../../classes/item/food/Food";
+import { ItemOptions } from "../../classes/item/Item";
 
-export default class Cake extends Interactable {
-	constructor(scene: ExtendedScene3D) {
-		super(scene, {
+export default class Cake extends Food {
+	constructor(options: ItemOptions) {
+		super(options);
+	}
+
+	static create() {
+		return new Cake({
 			name: "Cake",
+			uniqueId: "CAKE",
 			assets: {
 				model: {
 					path: "/models/food/cakeSlice.glb",
@@ -16,10 +21,6 @@ export default class Cake extends Interactable {
 				mass: 3,
 			},
 		});
-	}
-
-	static create(scene: ExtendedScene3D) {
-		return new Cake(scene);
 	}
 
 	construct() {

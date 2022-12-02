@@ -1,35 +1,74 @@
-import ExtendedScene3D from "./ExtendedScene3D";
+import { ExtendedObject3D } from "@enable3d/phaser-extension";
+import { Event } from "three";
+import { CollisionEvent } from "@enable3d/common/dist/types";
 import GameObject, { GameObjectOptions } from "./GameObject";
 
+export interface MouseEvent extends Event {
+	pointer: Phaser.Input.Pointer;
+	distance?: number;
+}
+
 export default class Interactable extends GameObject {
-	constructor(scene: ExtendedScene3D, options: GameObjectOptions) {
-		super(scene, options);
+	constructor(options: GameObjectOptions) {
+		super(options);
 
-		this.addEventListener("mouseDown", () => {
-			this.onActivate();
-			this.onMouseDown();
+		this.addEventListener("mouseLeftDown", (event) => {
+			this.onActivate(event as MouseEvent);
+			this.onMouseLeftDown(event as MouseEvent);
 		});
 
-		this.addEventListener("mouseUp", () => {
-			this.onMouseUp();
+		this.addEventListener("mouseLeftUp", (event) => {
+			this.onDeactivate(event as MouseEvent);
+			this.onMouseLeftUp(event as MouseEvent);
 		});
 
-		this.addEventListener("mouseEnter", () => {
-			this.onMouseEnter();
+		this.addEventListener("mouseRightDown", (event) => {
+			this.onActivate(event as MouseEvent);
+			this.onMouseRightDown(event as MouseEvent);
 		});
 
-		this.addEventListener("mouseExit", () => {
-			this.onMouseExit();
+		this.addEventListener("mouseRightUp", (event) => {
+			this.onDeactivate(event as MouseEvent);
+			this.onMouseRightUp(event as MouseEvent);
+		});
+
+		this.addEventListener("mouseEnter", (event) => {
+			this.onMouseEnter(event as MouseEvent);
+		});
+
+		this.addEventListener("mouseExit", (event) => {
+			this.onMouseExit(event as MouseEvent);
 		});
 	}
 
-	onActivate() {}
+	refreshCollisionBox() {
+		super.refreshCollisionBox();
 
-	onMouseDown() {}
+		this.body.on.collision((otherObject, event) => {
+			if (this.destroyed) return;
+			this.onCollision(otherObject, event);
+		});
+	}
 
-	onMouseUp() {}
+	canInteract(event: MouseEvent): boolean {
+		return true;
+	}
 
-	onMouseEnter() {}
+	onActivate(event: MouseEvent) {}
 
-	onMouseExit() {}
+	onDeactivate(event: MouseEvent) {}
+
+	onMouseLeftDown(event: MouseEvent) {}
+
+	onMouseLeftUp(event: MouseEvent) {}
+
+	onMouseRightDown(event: MouseEvent) {}
+
+	onMouseRightUp(event: MouseEvent) {}
+
+	onMouseEnter(event: MouseEvent) {}
+
+	onMouseExit(event: MouseEvent) {}
+
+	onCollision(otherObject: ExtendedObject3D, event: CollisionEvent) {}
 }

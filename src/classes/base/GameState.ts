@@ -1,10 +1,12 @@
 import { Event, EventDispatcher } from "three";
+import Copy from "../../utils/Copy";
 
 interface State {
 	[key: string]: any;
 }
 
 export interface ValueChangeEvent extends Event {
+	key: string;
 	oldValue: any;
 	newValue: any;
 }
@@ -23,7 +25,7 @@ export default class GameState extends EventDispatcher {
 	}
 
 	getValue(key: string) {
-		return this.data[key];
+		return Copy(this.data[key]);
 	}
 
 	setValue(key: string, value: any) {
@@ -32,13 +34,18 @@ export default class GameState extends EventDispatcher {
 
 		this.dispatchEvent({
 			type: "valueChange",
-			oldValue: oldValue,
-			newValue: value,
+			key: key,
+			oldValue: Copy(oldValue),
+			newValue: Copy(value),
+		});
+		this.dispatchEvent({
+			type: "stateChange",
+			state: Copy(this.data),
 		});
 	}
 
 	getState() {
-		return this.data;
+		return Copy(this.data);
 	}
 
 	setState(value: State) {
@@ -46,15 +53,16 @@ export default class GameState extends EventDispatcher {
 
 		this.dispatchEvent({
 			type: "stateChange",
-			state: value,
+			state: Copy(value),
 		});
 	}
 
 	listen(key: string, callback: (oldValue: any, newValue: any) => void) {
 		callback(null, this.getValue(key));
-		this.addEventListener("valueChange", (event) => {
-			const { oldValue, newValue } = event as ValueChangeEvent;
-			callback(oldValue, newValue);
+		this.addEventListener("valueChange", (e) => {
+			const event = e as ValueChangeEvent;
+			if (event.key !== key) return;
+			callback(event.oldValue, event.newValue);
 		});
 	}
 }

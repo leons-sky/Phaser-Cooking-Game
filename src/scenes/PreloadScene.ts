@@ -5,6 +5,7 @@ import {
 	Ingredients,
 	Products,
 	Structure,
+	Tools,
 } from "../objects";
 
 export default class PreloadScene extends Scene3D {
@@ -27,6 +28,7 @@ export default class PreloadScene extends Scene3D {
 		await preload(Furnature, this);
 		await preload(Ingredients, this);
 		await preload(Products, this);
+		await preload(Tools, this);
 
 		this.scene.launch("MainScene");
 	}

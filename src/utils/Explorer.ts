@@ -1,6 +1,7 @@
 import { Scene, Object3D } from "three";
 
 const explorer = document.getElementById("explorer") as HTMLElement;
+explorer.classList.add("hide");
 const container = document.getElementById("tree") as HTMLElement;
 let currentScene: Scene | null;
 
@@ -38,7 +39,6 @@ function assignEvents() {
 		title.addEventListener("click", () => {
 			const children =
 				title.parentElement?.getElementsByClassName("children")[0];
-			console.log(children);
 			if (children && children.classList.contains("children")) {
 				if (children.classList.contains("hide")) {
 					children.classList.remove("hide");

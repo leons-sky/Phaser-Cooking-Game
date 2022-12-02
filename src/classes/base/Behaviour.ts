@@ -1,26 +1,25 @@
-import Third from "@enable3d/phaser-extension/dist/third";
-import { AudioManager } from "@yandeu/audio";
-import { Keyboard } from "@yandeu/keyboard";
-import { Tap } from "@yandeu/tap";
 import Phaser from "phaser";
-import ExtendedScene3D from "./ExtendedScene3D";
+import GameState from "./GameState";
 
 const app = document.getElementById("app") as HTMLElement;
 
-export default class Behaviour {
+export default class Behaviour<T extends Phaser.Scene> {
+	/**
+	 * Reference to the domElement
+	 */
+	domElement: HTMLElement = app;
+
+	/**
+	 * If the behaviour is enabled
+	 */
 	enabled: boolean = true;
 
-	domElement: HTMLElement = app;
+	started: boolean = false;
 
 	/**
 	 * A reference to the current scene.
 	 */
-	scene: ExtendedScene3D;
-
-	/**
-	 * A reference to the enabled3d.Third instance.
-	 */
-	third: Third;
+	scene: T;
 
 	/**
 	 * A reference to the Phaser.Game instance.
@@ -105,32 +104,9 @@ export default class Behaviour {
 		| Phaser.Renderer.Canvas.CanvasRenderer
 		| Phaser.Renderer.WebGL.WebGLRenderer;
 
-	/**
-	 * A Tap instance.
-	 *
-	 * Can be used to detect tap/mouse inputs.
-	 */
-	tap: Tap;
-
-	/**
-	 * A Keyboard instance.
-	 *
-	 * Can be used to detect keyboard inputs.
-	 */
-	keyboard: Keyboard;
-
-	/**
-	 * An AudioManager instance.
-	 *
-	 * Used to manage audio.
-	 */
-	audio: AudioManager;
-
-	constructor(scene: ExtendedScene3D) {
+	constructor(scene: T) {
 		this.scene = scene;
-		this.third = scene.third;
 		this.game = scene.game;
-		this.audio = scene.audio;
 		this.cache = scene.cache;
 		this.registry = scene.registry;
 		this.sound = scene.sound;
@@ -141,10 +117,14 @@ export default class Behaviour {
 		this.time = scene.time;
 		this.plugins = scene.plugins;
 		this.renderer = scene.renderer;
-
-		this.tap = new Tap(this.domElement);
-		this.keyboard = new Keyboard();
 	}
+
+	/**
+	 * This method should be overriden by your own Behaviours.
+	 *
+	 * This method is called during game initialization.
+	 */
+	init() {}
 
 	/**
 	 * This method should be overriden by your own Behaviours.
@@ -161,4 +141,6 @@ export default class Behaviour {
 	 * @param delta The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
 	 */
 	update(time: number, delta: number) {}
+
+	checkEnabledState(state: GameState) {}
 }

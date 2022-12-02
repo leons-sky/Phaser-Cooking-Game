@@ -1,27 +1,40 @@
 import { Vector3 } from "three";
-import ExtendedScene3D from "../../classes/base/ExtendedScene3D";
-import Cookable from "../../classes/food/Cookable";
+import Cookable, { CookableOptions } from "../../classes/item/food/Cookable";
+import { FoodState } from "../../classes/item/food/Food";
 
 export default class Meat extends Cookable {
-	constructor(scene: ExtendedScene3D) {
-		super(scene, {
+	constructor(options: CookableOptions) {
+		super(options);
+	}
+
+	static create(defaultState?: FoodState) {
+		defaultState = defaultState ?? {};
+		defaultState.scoring = {
+			reward: 10,
+			state: {
+				cooked: true,
+			},
+		};
+
+		return new Meat({
 			name: "Meat",
+			uniqueId: "MEAT",
+			defaultState: defaultState,
 			assets: {
 				raw: {
 					path: "/models/food/meatRaw.glb",
-					offset: new Vector3(0, -0.03, 0),
+					offset: new Vector3(0, 0.027237, 0),
+					scale: 0.9,
 				},
 				cooked: {
 					path: "/models/food/meatCooked.glb",
-					offset: new Vector3(0, -0.03, 0),
+					offset: new Vector3(0, 0.027237, 0),
+					scale: 0.9,
 				},
 			},
+			previewImage: "/images/food/meatCooked.png",
 			physics: true,
 			refreshCollisionBox: false,
 		});
-	}
-
-	static create(scene: ExtendedScene3D) {
-		return new Meat(scene);
 	}
 }
