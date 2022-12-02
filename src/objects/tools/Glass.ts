@@ -12,7 +12,7 @@ export default class Glass extends Tool {
 			uniqueId: "GLASS",
 			assets: {
 				model: {
-					path: "/models/food/glass.GLB",
+					path: "/models/food/glass.glb",
 					// offset: new Vector3(0, -0.085, 0),
 				},
 			},

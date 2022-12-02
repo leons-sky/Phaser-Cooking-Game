@@ -10,7 +10,7 @@ export default class WallHalf extends GameObject {
 			name: "WallHalf",
 			assets: {
 				model: {
-					path: "/models/furnature/wallHalf.GLB",
+					path: "/models/furnature/wallHalf.glb",
 					scale: 2,
 				},
 			},

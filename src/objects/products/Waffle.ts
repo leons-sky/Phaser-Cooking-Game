@@ -10,7 +10,7 @@ export default class Waffle extends Food {
 			name: "Waffle",
 			uniqueId: "WAFFLE",
 			assets: {
-				model: "/models/food/waffle.GLB",
+				model: "/models/food/waffle.glb",
 			},
 			previewImage: "/images/food/waffle.png",
 			physics: true,

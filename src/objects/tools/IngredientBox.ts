@@ -18,7 +18,7 @@ export default class IngredientBox extends StaticTool {
 			name: "IngredientBox",
 			assets: {
 				model: {
-					path: "/models/furnature/cardboardBoxClosed.GLB",
+					path: "/models/furnature/cardboardBoxClosed.glb",
 					offset: new Vector3(-0.165, -0.1275, 0.165),
 					scale: 1.5,
 				},

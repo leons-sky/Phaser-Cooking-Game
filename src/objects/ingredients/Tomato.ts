@@ -20,7 +20,7 @@ export class TomatoSlice extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/tomatoSlice.GLB",
+					path: "/models/food/tomatoSlice.glb",
 					// offset: new Vector3(0, -0.015, 0),
 				},
 			},
@@ -42,7 +42,7 @@ export class Tomato extends Sliceable {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/tomato.GLB",
+					path: "/models/food/tomato.glb",
 					// offset: new Vector3(0, -0.07, 0),
 				},
 			},

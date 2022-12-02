@@ -10,7 +10,7 @@ export default class StoveHood extends GameObject {
 			name: "StoveHood",
 			assets: {
 				model: {
-					path: "/models/furnature/hoodLarge.GLB",
+					path: "/models/furnature/hoodLarge.glb",
 					scale: 2,
 				},
 			},

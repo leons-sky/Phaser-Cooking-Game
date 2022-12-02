@@ -10,7 +10,7 @@ export default class CabinetCornerRound extends GameObject {
 			name: "CabinetCornerRound",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenCabinetCornerRound.GLB",
+					path: "/models/furnature/kitchenCabinetCornerRound.glb",
 					scale: 2,
 				},
 			},

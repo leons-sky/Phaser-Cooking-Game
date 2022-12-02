@@ -22,11 +22,11 @@ export default class Bacon extends Cookable {
 			defaultState: defaultState,
 			assets: {
 				raw: {
-					path: "/models/food/baconRaw.GLB",
+					path: "/models/food/baconRaw.glb",
 					offset: new Vector3(0, 0.019553, 0),
 				},
 				cooked: {
-					path: "/models/food/bacon.GLB",
+					path: "/models/food/bacon.glb",
 					offset: new Vector3(0, 0.019553, 0),
 				},
 			},

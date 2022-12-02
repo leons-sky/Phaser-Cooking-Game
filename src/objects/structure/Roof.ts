@@ -10,7 +10,7 @@ export default class Roof extends GameObject {
 			name: "Roof",
 			assets: {
 				model: {
-					path: "/models/furnature/floorFull.GLB",
+					path: "/models/furnature/floorFull.glb",
 					scale: 2,
 				},
 			},

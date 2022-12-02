@@ -12,7 +12,7 @@ export default class Cake extends Food {
 			uniqueId: "CAKE",
 			assets: {
 				model: {
-					path: "/models/food/cakeSlice.GLB",
+					path: "/models/food/cakeSlice.glb",
 					offset: new Vector3(0, -0.15, 0),
 				},
 			},

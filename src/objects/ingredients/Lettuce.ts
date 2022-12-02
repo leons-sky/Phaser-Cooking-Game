@@ -13,7 +13,7 @@ export default class Lettuce extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/cabbage.GLB",
+					path: "/models/food/cabbage.glb",
 					// offset: new Vector3(0, -0.015, 0),
 				},
 			},

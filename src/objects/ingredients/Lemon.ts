@@ -20,7 +20,7 @@ export class LemonHalf extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/lemonHalf.GLB",
+					path: "/models/food/lemonHalf.glb",
 					// offset: new Vector3(0, -0.05, 0),
 				},
 			},
@@ -42,7 +42,7 @@ export class Lemon extends Sliceable {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/lemon.GLB",
+					path: "/models/food/lemon.glb",
 					// offset: new Vector3(0, -0.1, 0),
 				},
 			},

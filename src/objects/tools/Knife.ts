@@ -18,7 +18,7 @@ export default class Knife extends Tool {
 			uniqueId: "KNIFE",
 			assets: {
 				model: {
-					path: "/models/food/cookingKnife.GLB",
+					path: "/models/food/cookingKnife.glb",
 				},
 			},
 			physics: true,

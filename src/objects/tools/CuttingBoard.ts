@@ -11,7 +11,7 @@ export default class CuttingBoard extends Draggable {
 			uniqueId: "CUTTING_BOARD",
 			assets: {
 				model: {
-					path: "/models/food/cuttingBoard.GLB",
+					path: "/models/food/cuttingBoard.glb",
 				},
 			},
 			physics: {

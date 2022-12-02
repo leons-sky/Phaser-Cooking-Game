@@ -10,7 +10,7 @@ export default class Wall extends GameObject {
 			name: "Wall",
 			assets: {
 				model: {
-					path: "/models/furnature/wall.GLB",
+					path: "/models/furnature/wall.glb",
 					scale: 2,
 				},
 			},

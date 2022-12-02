@@ -10,7 +10,7 @@ export default class Cabinet extends GameObject {
 			name: "Cabinet",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenCabinet.GLB",
+					path: "/models/furnature/kitchenCabinet.glb",
 					scale: 2,
 				},
 			},
