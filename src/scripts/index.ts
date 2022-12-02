@@ -1,18 +1,19 @@
 import Behaviour from "../classes/base/Behaviour";
 import GameState from "../classes/base/GameState";
+import DevCamera from "./DevCamera";
+import DevTools from "./DevTools";
+import MouseEvents from "./MouseEvents";
+import Player from "./Player";
+import Reticle from "./Reticle";
+import Score from "./Score";
+import SellFood from "./SellFood";
+import Map from "./Map";
 
 export type Scripts = Behaviour<Phaser.Scene>[];
 
-const SCRIPTS: { [x: string]: string[] } = {
-	MainScene: [
-		"SellFood",
-		"MouseEvents",
-		"Player",
-		"DevCamera",
-		"DevTools",
-		"Map",
-	],
-	InterfaceScene: ["Reticle", "Score"],
+const SCRIPTS: { [x: string]: typeof Behaviour<Phaser.Scene>[] } = {
+	MainScene: [SellFood, MouseEvents, Player, DevCamera, DevTools, Map],
+	InterfaceScene: [Reticle, Score],
 };
 
 export async function getScripts(
@@ -22,9 +23,8 @@ export async function getScripts(
 	const scriptNames = SCRIPTS[sceneName];
 
 	const scripts: Scripts = [];
-	for (const scriptName of scriptNames) {
-		const module = await import(/* @vite-ignore */ `./${scriptName}.ts`);
-		scripts.push(new module.default(scene));
+	for (const script of scriptNames) {
+		scripts.push(new script(scene));
 	}
 
 	return scripts;
