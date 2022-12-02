@@ -1,8 +1,7 @@
-import Food from "../../classes/item/food/Food";
-import { ItemOptions } from "../../classes/item/Item";
+import Food, { FoodOptions } from "../../classes/item/food/Food";
 
 export default class Waffle extends Food {
-	constructor(options: ItemOptions) {
+	constructor(options: FoodOptions) {
 		super(options);
 	}
 
@@ -13,6 +12,7 @@ export default class Waffle extends Food {
 			assets: {
 				model: "/models/food/waffle.glb",
 			},
+			previewImage: "/images/food/waffle.png",
 			physics: true,
 		});
 	}

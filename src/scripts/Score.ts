@@ -3,32 +3,56 @@ import GameState from "../classes/base/GameState";
 import InterfaceScene from "../scenes/InterfaceScene";
 
 export default class Score extends Behaviour<InterfaceScene> {
-	private text: Phaser.GameObjects.Text;
+	private scoreText: Phaser.GameObjects.Text;
+	private highScoreText: Phaser.GameObjects.Text;
 
 	constructor(scene: InterfaceScene) {
 		super(scene);
 
 		this.scene = scene;
 
-		this.text = this.scene.add.text(10, 10, "Score: 0", {
+		this.scoreText = this.scene.add.text(10, 10, "Score: 0", {
 			fontFamily: "sans-serif",
 			fontSize: "50px",
 		});
-		this.text.setVisible(false);
+		const highScore = localStorage.getItem("highScore");
+		this.highScoreText = this.scene.add.text(
+			10,
+			60,
+			`HighScore: ${highScore ? Number(highScore) : 0}`,
+			{
+				fontFamily: "sans-serif",
+				fontSize: "20px",
+			}
+		);
+		this.scoreText.setVisible(false);
+		this.highScoreText.setVisible(false);
 	}
 
 	checkEnabledState(state: GameState) {
 		this.enabled = !!state.getValue("firstPerson");
 		if (this.enabled) {
-			this.text.setVisible(true);
+			this.scoreText.setVisible(true);
+			this.highScoreText.setVisible(true);
 		} else {
-			this.text.setVisible(false);
+			this.scoreText.setVisible(false);
+			this.highScoreText.setVisible(false);
 		}
 	}
 
 	start() {
 		this.scene.main?.state.listen("score", (_, newValue) => {
-			this.text.text = `Score: ${newValue ?? -1}`;
+			let highScoreStr = localStorage.getItem("highScore");
+			let highScore = 0;
+			if (highScoreStr) {
+				highScore = Number(highScoreStr);
+			}
+			if (highScore < newValue) {
+				highScore = newValue;
+				localStorage.setItem("highScore", highScore.toString());
+			}
+			this.highScoreText.text = `HighScore: ${highScore}`;
+			this.scoreText.text = `Score: ${newValue ?? -1}`;
 		});
 	}
 }

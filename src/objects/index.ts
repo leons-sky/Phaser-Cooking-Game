@@ -34,6 +34,9 @@ import IngredientBox from "./tools/IngredientBox";
 import Food from "../classes/item/food/Food";
 import Roof from "./structure/Roof";
 import CuttingBoard from "./tools/CuttingBoard";
+import Lettuce from "./ingredients/Lettuce";
+import Salad from "./products/Salad";
+import SaladBowl from "./tools/SaladBowl";
 
 interface GameObjects {
 	[x: string]: typeof GameObject;
@@ -56,11 +59,13 @@ export const Ingredients = {
 	ONION_HALF: OnionHalf,
 	TOMATO: Tomato,
 	TOMATO_SLICE: TomatoSlice,
+	LETTUCE: Lettuce,
 };
 
 export const Products = {
 	CAKE: Cake,
 	WAFFLE: Waffle,
+	SALAD: Salad,
 };
 
 export const Tools = {
@@ -69,6 +74,7 @@ export const Tools = {
 	FRYING_PAN: FryingPan,
 	INGREDIENT_BOX: IngredientBox,
 	CUTTING_BOARD: CuttingBoard,
+	SALAD_BOWL: SaladBowl,
 };
 
 export const Structure = {

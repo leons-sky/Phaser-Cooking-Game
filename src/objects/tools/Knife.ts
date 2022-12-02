@@ -22,10 +22,6 @@ export default class Knife extends Tool {
 				},
 			},
 			physics: true,
-			dragRotationOffset: new Quaternion().setFromAxisAngle(
-				new Vector3(1, 0, 0),
-				-Math.PI * 0.5
-			),
 		});
 	}
 

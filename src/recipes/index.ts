@@ -1,6 +1,8 @@
 import RecipeBase from "../classes/base/Recipe";
+import Ingredient from "../classes/item/food/Ingredient";
 import CookingRecipe from "../classes/recipeTypes/CookingRecipe";
-import { Ingredients } from "../objects";
+import MixRecipe from "../classes/recipeTypes/MixRecipe";
+import { Ingredients, Products } from "../objects";
 
 export function Recipes() {
 	return {
@@ -11,6 +13,7 @@ export function Recipes() {
 					cooked: false,
 				},
 			})
+			.setDuration(3)
 			.setResult(Ingredients.EGG),
 		COOKED_MEAT_RECIPE: new CookingRecipe()
 			.setInput({
@@ -19,6 +22,7 @@ export function Recipes() {
 					cooked: false,
 				},
 			})
+			.setDuration(30)
 			.setResult(Ingredients.MEAT),
 		COOKED_BACON_RECIPE: new CookingRecipe()
 			.setInput({
@@ -27,7 +31,16 @@ export function Recipes() {
 					cooked: false,
 				},
 			})
+			.setDuration(10)
 			.setResult(Ingredients.BACON),
+		SALAD_RECIPE: new MixRecipe()
+			.addIngredients(
+				Ingredients.AVOCADO_HALF.create(),
+				Ingredients.TOMATO_SLICE.create(),
+				Ingredients.LEMON_HALF.create(),
+				Ingredients.LETTUCE.create()
+			)
+			.setResult(Products.SALAD),
 	};
 }
 

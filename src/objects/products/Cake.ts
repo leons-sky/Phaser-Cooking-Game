@@ -1,9 +1,8 @@
-import { Vector3 } from "three";
-import Food from "../../classes/item/food/Food";
-import { ItemOptions } from "../../classes/item/Item";
+import { Matrix4, Vector3 } from "three";
+import Food, { FoodOptions } from "../../classes/item/food/Food";
 
 export default class Cake extends Food {
-	constructor(options: ItemOptions) {
+	constructor(options: FoodOptions) {
 		super(options);
 	}
 
@@ -17,8 +16,9 @@ export default class Cake extends Food {
 					offset: new Vector3(0, -0.15, 0),
 				},
 			},
+			previewImage: "/images/food/cake.png",
 			physics: {
-				mass: 3,
+				mass: 10,
 			},
 		});
 	}
@@ -31,7 +31,7 @@ export default class Cake extends Food {
 		}
 	}
 
-	onActivate() {
+	onMouseRightDown() {
 		this.body.applyForceY(1);
 		this.removeSlice();
 	}

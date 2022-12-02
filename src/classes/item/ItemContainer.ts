@@ -2,7 +2,7 @@ import { Event } from "three";
 import Item, { ItemOptions } from "./Item";
 import Tool from "./Tool";
 
-interface ItemContainerOptions extends ItemOptions {
+export interface ItemContainerOptions extends ItemOptions {
 	maxItems?: number;
 }
 

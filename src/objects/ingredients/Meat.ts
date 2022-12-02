@@ -10,7 +10,7 @@ export default class Meat extends Cookable {
 	static create(defaultState?: FoodState) {
 		defaultState = defaultState ?? {};
 		defaultState.scoring = {
-			reward: 10,
+			reward: 50,
 			state: {
 				cooked: true,
 			},

@@ -55,7 +55,7 @@ export default class MainScene extends ExtendedScene3D {
 			width: 15,
 			height: 10,
 			name: "Ground",
-			y: -0.5,
+			y: -0.48,
 			z: 6,
 		});
 		ground.body.setFriction(0.8);

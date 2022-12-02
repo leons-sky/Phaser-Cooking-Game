@@ -1,10 +1,11 @@
 import { CollisionEvent } from "@enable3d/common/dist/types";
 import { ExtendedObject3D } from "@enable3d/phaser-extension";
 import { Raycaster, Vector3 } from "three";
-import { DraggableOptions } from "../../classes/item/Draggable";
 import Cookable from "../../classes/item/food/Cookable";
 import Item from "../../classes/item/Item";
-import ItemContainer from "../../classes/item/ItemContainer";
+import ItemContainer, {
+	ItemContainerOptions,
+} from "../../classes/item/ItemContainer";
 import CookingRecipe from "../../classes/recipeTypes/CookingRecipe";
 import { getRecipesOfType } from "../../recipes";
 import { raycastSceneForGameObjects } from "../../utils/Raycast";
@@ -16,7 +17,7 @@ export default class FryingPan extends ItemContainer {
 	private cooking: boolean = false;
 	private cookingEvent: Phaser.Time.TimerEvent | null = null;
 
-	constructor(options: DraggableOptions) {
+	constructor(options: ItemContainerOptions) {
 		super(options);
 	}
 
@@ -37,7 +38,7 @@ export default class FryingPan extends ItemContainer {
 		const recipes = getRecipesOfType(CookingRecipe);
 		for (const recipe of recipes) {
 			if (recipe.canCraft([item])) {
-				return recipe;
+				return recipe as CookingRecipe;
 			}
 		}
 		return null;
@@ -56,7 +57,7 @@ export default class FryingPan extends ItemContainer {
 		item.destroyCollisionBox();
 
 		item.parent = this;
-		item.position.set(0, 0.01, -0.06);
+		item.position.set(0, 0.01, -0.04);
 		item.rotation.set(0, 0, 0);
 
 		this.recipe = this.findRecipe(item);

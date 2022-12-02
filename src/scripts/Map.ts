@@ -1,5 +1,5 @@
 import Behaviour3D from "../classes/base/Behaviour3D";
-import { Furnature, Ingredients, Structure, Tools } from "../objects";
+import { Furnature, Ingredients, Products, Structure, Tools } from "../objects";
 import MainScene from "../scenes/MainScene";
 
 export default class Camera extends Behaviour3D<MainScene> {
@@ -234,20 +234,27 @@ export default class Camera extends Behaviour3D<MainScene> {
 		{
 			const box = Tools.INGREDIENT_BOX.create();
 			box.position.set(3, 0.1275, 2.25);
-			box.rotateY(Math.PI * 0.5);
 			box.addToScene(this.scene);
-			box.setIngredient(Ingredients.EGG_SHELLED);
+			box.rotateY(Math.PI * 0.5);
+			box.setIngredient(Ingredients.LETTUCE);
 		}
 		{
 			const box = Tools.INGREDIENT_BOX.create();
 			box.position.set(2.5, 0.1275, 2.25);
 			box.rotateY(Math.PI * 0.5);
 			box.addToScene(this.scene);
-			box.setIngredient(Ingredients.MEAT);
+			box.setIngredient(Ingredients.EGG_SHELLED);
 		}
 		{
 			const box = Tools.INGREDIENT_BOX.create();
 			box.position.set(2, 0.1275, 2.25);
+			box.rotateY(Math.PI * 0.5);
+			box.addToScene(this.scene);
+			box.setIngredient(Ingredients.MEAT);
+		}
+		{
+			const box = Tools.INGREDIENT_BOX.create();
+			box.position.set(1.5, 0.1275, 2.25);
 			box.rotateY(Math.PI * 0.5);
 			box.addToScene(this.scene);
 			box.setIngredient(Ingredients.BACON);
@@ -266,10 +273,37 @@ export default class Camera extends Behaviour3D<MainScene> {
 			pan.addToScene(this.scene);
 		}
 		{
+			const pan = Tools.FRYING_PAN.create();
+			pan.position.set(2.3, 1, 5.5);
+			pan.addToScene(this.scene);
+		}
+		{
 			const knife = Tools.KNIFE.create();
 			knife.position.set(4.5, 1, 6);
 			knife.rotateY(Math.PI * 0.5);
 			knife.addToScene(this.scene);
+		}
+
+		{
+			const bowl = Tools.SALAD_BOWL.create();
+			bowl.position.set(0, 1, 7);
+			bowl.addToScene(this.scene);
+		}
+		{
+			const bowl = Tools.SALAD_BOWL.create();
+			bowl.position.set(0, 1, 6.5);
+			bowl.addToScene(this.scene);
+		}
+		{
+			const bowl = Tools.SALAD_BOWL.create();
+			bowl.position.set(0, 1, 6);
+			bowl.addToScene(this.scene);
+		}
+
+		{
+			const cake = Products.CAKE.create();
+			cake.position.set(0, 1, 8.5);
+			cake.addToScene(this.scene);
 		}
 	}
 }

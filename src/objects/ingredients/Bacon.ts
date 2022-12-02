@@ -10,7 +10,7 @@ export default class Bacon extends Cookable {
 	static create(defaultState?: FoodState) {
 		defaultState = defaultState ?? {};
 		defaultState.scoring = {
-			reward: 5,
+			reward: 15,
 			state: {
 				cooked: true,
 			},

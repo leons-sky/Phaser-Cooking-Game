@@ -34,6 +34,10 @@ export default class RecipeBase {
 		RecipeBase.recipes.push(this);
 	}
 
+	getIngredientCount() {
+		return this.ingredients.length;
+	}
+
 	setResult(result: RecipeResultClass, resultState?: EntityState) {
 		this.result = {
 			resultClass: result,
