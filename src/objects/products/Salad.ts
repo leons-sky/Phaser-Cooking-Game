@@ -14,6 +14,7 @@ export default class Salad extends Food {
 		return new Salad({
 			name: "Salad",
 			uniqueId: "SALAD",
+			defaultState: defaultState,
 			assets: {
 				model: "/models/food/salad.glb",
 			},

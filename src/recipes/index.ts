@@ -1,5 +1,4 @@
 import RecipeBase from "../classes/base/Recipe";
-import Ingredient from "../classes/item/food/Ingredient";
 import CookingRecipe from "../classes/recipeTypes/CookingRecipe";
 import MixRecipe from "../classes/recipeTypes/MixRecipe";
 import { Ingredients, Products } from "../objects";
