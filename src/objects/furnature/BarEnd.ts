@@ -10,7 +10,7 @@ export default class BarEnd extends GameObject {
 			name: "BarEnd",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenBarEnd.glb",
+					path: "/models/furnature/kitchenBarEnd.GLB",
 					scale: 2,
 				},
 			},

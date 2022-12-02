@@ -10,7 +10,7 @@ export default class LargeFridge extends GameObject {
 			name: "LargeFridge",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenFridgeLarge.glb",
+					path: "/models/furnature/kitchenFridgeLarge.GLB",
 					scale: 2,
 				},
 			},

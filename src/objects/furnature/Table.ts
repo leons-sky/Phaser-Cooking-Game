@@ -10,7 +10,7 @@ export default class Table extends GameObject {
 			name: "Table",
 			assets: {
 				model: {
-					path: "/models/furnature/table.glb",
+					path: "/models/furnature/table.GLB",
 					scale: 2,
 				},
 			},

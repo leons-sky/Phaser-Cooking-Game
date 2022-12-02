@@ -20,7 +20,7 @@ export class MushroomHalf extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/mushroomHalf.glb",
+					path: "/models/food/mushroomHalf.GLB",
 					// offset: new Vector3(-0.03, -0.07, 0),
 				},
 			},
@@ -42,7 +42,7 @@ export class Mushroom extends Sliceable {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/mushroom.glb",
+					path: "/models/food/mushroom.GLB",
 					// offset: new Vector3(0, -0.07, 0),
 				},
 			},

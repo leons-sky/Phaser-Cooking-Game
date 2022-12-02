@@ -25,11 +25,11 @@ export class Egg extends Cookable {
 			defaultState: defaultState,
 			assets: {
 				raw: {
-					path: "/models/food/eggRaw.glb",
+					path: "/models/food/eggRaw.GLB",
 					offset: new Vector3(0, 0.008103, 0),
 				},
 				cooked: {
-					path: "/models/food/eggCooked.glb",
+					path: "/models/food/eggCooked.GLB",
 					offset: new Vector3(0, 0.008103, 0),
 				},
 			},
@@ -52,7 +52,7 @@ export class EggShelled extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/egg.glb",
+					path: "/models/food/egg.GLB",
 					// offset: new Vector3(0, -0.085, 0),
 				},
 			},

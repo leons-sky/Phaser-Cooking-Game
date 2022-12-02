@@ -11,11 +11,11 @@ export default class Doorway extends GameObject {
 			name: "Doorway",
 			assets: {
 				door: {
-					path: "/models/furnature/doorway.glb",
+					path: "/models/furnature/doorway.GLB",
 					scale: 2,
 				},
 				wall: {
-					path: "/models/furnature/wallDoorway.glb",
+					path: "/models/furnature/wallDoorway.GLB",
 					scale: 2,
 				},
 			},

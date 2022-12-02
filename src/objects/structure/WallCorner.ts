@@ -10,7 +10,7 @@ export default class WallCorner extends GameObject {
 			name: "WallCorner",
 			assets: {
 				model: {
-					path: "/models/furnature/wallCorner.glb",
+					path: "/models/furnature/wallCorner.GLB",
 					scale: 2,
 				},
 			},

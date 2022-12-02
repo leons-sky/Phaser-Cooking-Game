@@ -10,7 +10,7 @@ export default class CabinetDrawer extends GameObject {
 			name: "CabinetDrawer",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenCabinetDrawer.glb",
+					path: "/models/furnature/kitchenCabinetDrawer.GLB",
 					scale: 2,
 				},
 			},

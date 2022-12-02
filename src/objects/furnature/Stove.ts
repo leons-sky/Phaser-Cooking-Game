@@ -10,7 +10,7 @@ export default class Stove extends GameObject {
 			name: "Stove",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenStove.glb",
+					path: "/models/furnature/kitchenStove.GLB",
 					// offset: new Vector3(-0.425, -0.425, 0.45),
 					scale: 2,
 				},

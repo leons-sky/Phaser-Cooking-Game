@@ -20,7 +20,7 @@ export class AppleHalf extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/appleHalf.glb",
+					path: "/models/food/appleHalf.GLB",
 					// offset: new Vector3(-0.05, -0.1, 0),
 				},
 			},
@@ -42,7 +42,7 @@ export class Apple extends Sliceable {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/apple.glb",
+					path: "/models/food/apple.GLB",
 					// offset: new Vector3(0, -0.1, 0),
 				},
 			},

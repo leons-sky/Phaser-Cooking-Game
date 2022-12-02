@@ -10,7 +10,7 @@ export default class Sink extends GameObject {
 			name: "Sink",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenSink.glb",
+					path: "/models/furnature/kitchenSink.GLB",
 					scale: 2,
 				},
 			},

@@ -18,8 +18,8 @@ export default class SaladBowl extends ItemContainer {
 			name: "SaladBowl",
 			uniqueId: "SALAD_BOWL",
 			assets: {
-				model: "/models/food/saladBowl.glb",
-				withMixture: "/models/food/saladBowlMixture.glb",
+				model: "/models/food/saladBowl.GLB",
+				withMixture: "/models/food/saladBowlMixture.GLB",
 			},
 			physics: true,
 			maxItems: 5,

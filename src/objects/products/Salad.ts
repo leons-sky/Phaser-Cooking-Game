@@ -16,7 +16,7 @@ export default class Salad extends Food {
 			uniqueId: "SALAD",
 			defaultState: defaultState,
 			assets: {
-				model: "/models/food/salad.glb",
+				model: "/models/food/salad.GLB",
 			},
 			previewImage: "/images/food/salad.png",
 			physics: true,

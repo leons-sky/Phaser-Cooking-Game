@@ -10,7 +10,7 @@ export default class Bar extends GameObject {
 			name: "Bar",
 			assets: {
 				model: {
-					path: "/models/furnature/kitchenBar.glb",
+					path: "/models/furnature/kitchenBar.GLB",
 					scale: 2,
 				},
 			},

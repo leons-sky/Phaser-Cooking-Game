@@ -20,7 +20,7 @@ export class OnionHalf extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/onionHalf.glb",
+					path: "/models/food/onionHalf.GLB",
 					// offset: new Vector3(-0.05, -0.1, 0),
 				},
 			},
@@ -42,7 +42,7 @@ export class Onion extends Sliceable {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/onion.glb",
+					path: "/models/food/onion.GLB",
 					// offset: new Vector3(0, -0.1, 0),
 				},
 			},

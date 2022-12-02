@@ -27,7 +27,7 @@ export default class FryingPan extends ItemContainer {
 			uniqueId: "FRYING_PAN",
 			assets: {
 				model: {
-					path: "/models/food/fryingPan.glb",
+					path: "/models/food/fryingPan.GLB",
 				},
 			},
 			physics: true,

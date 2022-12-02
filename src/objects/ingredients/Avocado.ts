@@ -20,7 +20,7 @@ export class AvocadoHalf extends Ingredient {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/avocadoHalf.glb",
+					path: "/models/food/avocadoHalf.GLB",
 					// offset: new Vector3(-0.05, -0.1, 0),
 				},
 			},
@@ -42,7 +42,7 @@ export class Avocado extends Sliceable {
 			defaultState: defaultState,
 			assets: {
 				model: {
-					path: "/models/food/avocado.glb",
+					path: "/models/food/avocado.GLB",
 					// offset: new Vector3(0, -0.1, 0),
 				},
 			},

@@ -22,12 +22,12 @@ export default class Meat extends Cookable {
 			defaultState: defaultState,
 			assets: {
 				raw: {
-					path: "/models/food/meatRaw.glb",
+					path: "/models/food/meatRaw.GLB",
 					offset: new Vector3(0, 0.027237, 0),
 					scale: 0.9,
 				},
 				cooked: {
-					path: "/models/food/meatCooked.glb",
+					path: "/models/food/meatCooked.GLB",
 					offset: new Vector3(0, 0.027237, 0),
 					scale: 0.9,
 				},
