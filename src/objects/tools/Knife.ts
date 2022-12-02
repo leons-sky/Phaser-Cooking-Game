@@ -1,6 +1,6 @@
 import { CollisionEvent } from "@enable3d/common/dist/types";
 import { ExtendedObject3D } from "@enable3d/phaser-extension";
-import { Quaternion, Raycaster, Vector3 } from "three";
+import { Raycaster, Vector3 } from "three";
 import { DraggableOptions } from "../../classes/item/Draggable";
 import Sliceable from "../../classes/item/food/Sliceable";
 import Tool from "../../classes/item/Tool";

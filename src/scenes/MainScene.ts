@@ -3,7 +3,7 @@ import { getScripts, ScriptManager } from "../scripts";
 import * as three from "three";
 import ExtendedScene3D from "../classes/base/ExtendedScene3D";
 import Entity from "../classes/base/Entity";
-import { Ingredients, preloadImages, Products } from "../objects";
+import { Ingredients, preloadImages } from "../objects";
 
 export default class MainScene extends ExtendedScene3D {
 	private scriptManager: ScriptManager;

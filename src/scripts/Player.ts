@@ -33,14 +33,14 @@ export default class Player extends Behaviour3D<MainScene> {
 	private pointerMoveY: number;
 	private walkSpeed: number;
 	private rotationSpeed: number;
-	private collide: boolean;
+	// private collide: boolean;
 
 	constructor(scene: MainScene) {
 		super(scene);
 
 		this.walkSpeed = 6;
 		this.rotationSpeed = 10;
-		this.collide = false;
+		// this.collide = false;
 
 		this.pointerMoveX = 0;
 		this.pointerMoveY = 0;
@@ -208,9 +208,9 @@ export default class Player extends Behaviour3D<MainScene> {
 
 		this.raycaster.ray.origin.copy(cam.position);
 
-		this.object.body.on.collision((_otherObject, event) => {
-			if (event !== "end") this.collide = true;
-			else this.collide = false;
-		});
+		// this.object.body.on.collision((_otherObject, event) => {
+		// if (event !== "end") this.collide = true;
+		// else this.collide = false;
+		// });
 	}
 }

@@ -1,5 +1,5 @@
 import Behaviour from "../classes/base/Behaviour";
-import GameState, { StateChangeEvent } from "../classes/base/GameState";
+import GameState from "../classes/base/GameState";
 
 export type Scripts = Behaviour<Phaser.Scene>[];
 

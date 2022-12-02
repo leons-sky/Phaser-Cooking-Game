@@ -1,4 +1,4 @@
-import { Matrix4, Vector3 } from "three";
+import { Vector3 } from "three";
 import Food, { FoodOptions } from "../../classes/item/food/Food";
 
 export default class Cake extends Food {

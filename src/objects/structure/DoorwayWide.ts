@@ -1,4 +1,3 @@
-import { Vector3 } from "three";
 import GameObject, { GameObjectOptions } from "../../classes/base/GameObject";
 
 export default class DoorwayWide extends GameObject {

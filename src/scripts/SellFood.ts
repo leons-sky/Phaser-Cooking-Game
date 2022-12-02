@@ -1,6 +1,5 @@
 import { ExtendedObject3D } from "@enable3d/phaser-extension";
 import Behaviour3D from "../classes/base/Behaviour3D";
-import Food from "../classes/item/food/Food";
 import MainScene from "../scenes/MainScene";
 
 export default class SellFood extends Behaviour3D<MainScene> {

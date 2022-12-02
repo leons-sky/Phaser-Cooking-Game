@@ -1,4 +1,3 @@
-import Copy from "../../utils/Copy";
 import Ingredient from "../item/food/Ingredient";
 import Item from "../item/Item";
 import Entity, { EntityState } from "./Entity";
